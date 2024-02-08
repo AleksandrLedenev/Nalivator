@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nalivator_applicatioin2/main.dart';
 
 class Options extends StatefulWidget {
+
   const Options({super.key});
 
   @override
@@ -8,17 +10,8 @@ class Options extends StatefulWidget {
 }
 
 class _OptionsState extends State<Options> {
-
-  bool _autoMode = false;
-  bool _leftMode = false;
-
-  bool getAutoMode() {
-    return _autoMode;
-  }
-
-  bool getLeftMode() {
-    return _leftMode;
-  }
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +34,10 @@ class _OptionsState extends State<Options> {
                 trailing: Switch(
                   onChanged: (bool? value) {
                     setState(() {
-                      _autoMode = value!;
+                      autoMode = value!;
                     });
                   },
-                  value: _autoMode,
+                  value: autoMode,
                 )),
             ListTile(
                 leading: const Icon(Icons.loop),
@@ -57,10 +50,10 @@ class _OptionsState extends State<Options> {
                 trailing: Switch(
                   onChanged: (bool? value) {
                     setState(() {
-                      _leftMode = value!;
+                      leftMode = value!;
                     });
                   },
-                  value: _leftMode,
+                  value: leftMode,
                 )),
             ListTile(
               onTap: () {
@@ -74,8 +67,8 @@ class _OptionsState extends State<Options> {
                 ),
               ),
             ),
-            Text('Автоматический режим: $_autoMode'),
-            Text('Левый режим: $_leftMode'),
+            Text('Автоматический режим: $autoMode'),
+            Text('Левый режим: $leftMode'),
           ],
         ));
   }

@@ -1,23 +1,31 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nalivator_applicatioin2/main.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+
+class GlassIndicator extends StatefulWidget{
+  const GlassIndicator({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<GlassIndicator> createState() => _GlassIndicator();
+
 }
 
-class _GlassIndicator extends State<Home> {
+class _GlassIndicator extends State<GlassIndicator> {
   Color _color = Colors.blue;
+ // bool isPresed = false;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        _color = Colors.red;
+        setState(() {
+          if (!autoMode){
+            (_color == Colors.red) ? setColor(Colors.blue) : setColor(Colors.red);
+          }
+        });
       },
       style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
@@ -32,6 +40,7 @@ class _GlassIndicator extends State<Home> {
     _color = color;
   }
 }
+
 
 class _Slider extends State<Home> {
 
@@ -68,14 +77,23 @@ class _Slider extends State<Home> {
   }
 }
 
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
 class _HomeState extends State<Home> {
   
+  List<Widget> indList = const [
+   GlassIndicator(),
+   GlassIndicator(),
+   GlassIndicator(),
+   GlassIndicator(),
+   GlassIndicator()
+  ];
 
-  _GlassIndicator ind1 = _GlassIndicator();
-  _GlassIndicator ind2 = _GlassIndicator();
-  _GlassIndicator ind3 = _GlassIndicator();
-  _GlassIndicator ind4 = _GlassIndicator();
-  _GlassIndicator ind5 = _GlassIndicator();
   _Slider slider = _Slider();
   
 
@@ -91,20 +109,13 @@ class _HomeState extends State<Home> {
             const Padding(padding: EdgeInsets.only(top: 70)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ind1.build(context),
-                ind2.build(context),
-                ind3.build(context),
-                ind4.build(context),
-                ind5.build(context),
-              ],
-            ),
+              children: indList,
+              ),             
             const Padding(padding: EdgeInsets.only(top: 100)),
             slider.build(context),
             ElevatedButton(
                 onPressed: () {
                   log(slider._value.toInt().toString());
-                  setState(() {});
                 },
                 child: const Text(
                   'Налить',
