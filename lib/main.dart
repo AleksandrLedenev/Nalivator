@@ -6,6 +6,9 @@ void main() {
   runApp(const MainApp());
 }
 
+  bool autoMode = false;
+  bool leftMode = false;
+
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
@@ -18,16 +21,12 @@ class _MainAppState extends State<MainApp> {
 
   static const _colorGrayWindow =  Color(0xFF9DA1AA);
   static const _colorDarkBlue =  Color(0xFF3B83BD);
-
-  static var homePage = const Home();
-  static var optionsPage = const Options();
-
   
 
-  final _pages = [
-    const Text('Соединение'),
-    homePage,
-    optionsPage
+  List<Widget> pageList = [
+    const Text('otrtfgdg'),
+    const Home(),
+    const Options(),
   ];
 
   @override
@@ -35,7 +34,10 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       title: 'Nalivator Applcation',
       home: Scaffold(
-          body: _pages.elementAt(_currentPage),
+          body: IndexedStack(
+            index: _currentPage,
+            children: pageList,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentPage,
             items: const [

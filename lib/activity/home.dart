@@ -15,7 +15,6 @@ class GlassIndicator extends StatefulWidget{
 
 class _GlassIndicator extends State<GlassIndicator> {
   Color _color = Colors.blue;
- // bool isPresed = false;
 
   @override
   Widget build(BuildContext context) {
