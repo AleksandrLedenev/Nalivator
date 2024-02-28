@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_blue: 
+  get: ^4.6.5
+  permission_handler:
   sleek_circular_slider: ^2.0.1
 
 dev_dependencies:

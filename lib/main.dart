@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:nalivator_applicatioin2/activity/options.dart';
+import '/activity/options.dart';
 import 'activity/home.dart';
+import 'activity/connection.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
+
   bool autoMode = false;
   bool leftMode = false;
+
+  bool isConnect = true;
+ 
+  
+
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -24,7 +31,7 @@ class _MainAppState extends State<MainApp> {
   
 
   List<Widget> pageList = [
-    const Text('otrtfgdg'),
+    const Connection(),
     const Home(),
     const Options(),
   ];

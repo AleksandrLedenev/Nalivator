@@ -113,9 +113,9 @@ class _HomeState extends State<Home> {
             const Padding(padding: EdgeInsets.only(top: 100)),
             slider.build(context),
             ElevatedButton(
-                onPressed: () {
-                  log(slider._value.toInt().toString());
-                },
+                 onPressed: () {
+                  log(slider._value.toString());
+                 },
                 child: const Text(
                   'Налить',
                   style: TextStyle(fontSize: 60),
