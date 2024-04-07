@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nalivator_applicatioin2/main.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 
 class GlassIndicator extends StatefulWidget{
@@ -14,7 +16,7 @@ class GlassIndicator extends StatefulWidget{
 }
 
 class _GlassIndicator extends State<GlassIndicator> {
-  Color _color = Colors.blue;
+  Color _color = Colors.blue;  
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +97,40 @@ class _HomeState extends State<Home> {
 
   _Slider slider = _Slider();
   
+  late BluetoothDevice device;
+
+  late BluetoothCharacteristic _writeCharacteristic;
+
+  Future<void> _getConnectedDevices() async {
+    List<BluetoothDevice> devices = await FlutterBlue.instance.connectedDevices;
+    setState(() {
+      for (var d in devices) {
+        print(d.name);
+        if (d.name == 'HMSoft') {
+          device = d;
+        }
+      }
+    });
+  }
+
+  void discoverServices() async {
+    _getConnectedDevices();
+    List<BluetoothService> services = await device.discoverServices();
+    services.forEach((service) {
+      service.characteristics.forEach((characteristic) {
+        if (characteristic.properties.write) {
+          _writeCharacteristic = characteristic;
+        }
+      });
+    });
+  }
+
+  void _sendMessage(String message) async {
+    if (_writeCharacteristic != null) {
+      List<int> bytes = utf8.encode(message);
+      await _writeCharacteristic.write(bytes);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +150,8 @@ class _HomeState extends State<Home> {
             slider.build(context),
             ElevatedButton(
                  onPressed: () {
+                  discoverServices();
+                  _sendMessage('V${slider._value.toInt()}');
                   log(slider._value.toString());
                  },
                 child: const Text(

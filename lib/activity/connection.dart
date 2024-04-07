@@ -48,7 +48,7 @@ class _ConnectionState extends State<Connection> {
                     title: Text(devicesList[index].name),
                     subtitle: Text(devicesList[index].id.toString()),
                     onTap: () {
-                      print(devicesList[index]);
+                      devicesList[index].connect();
                     },
                   );
                 },
