@@ -10,6 +10,7 @@ class Connection extends StatefulWidget {
 
 class _ConnectionState extends State<Connection> {
   String _titleText = 'Соединение';
+  Color _appBarColor = Colors.cyan;
 
   List<BluetoothDevice> devicesList = [];
   FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -33,7 +34,8 @@ class _ConnectionState extends State<Connection> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_titleText),
+          title: Text(_titleText, style: const TextStyle(fontSize: 30)),
+          backgroundColor: _appBarColor,
         ),
         body: Column(
           children: <Widget>[
@@ -49,6 +51,10 @@ class _ConnectionState extends State<Connection> {
                     subtitle: Text(devicesList[index].id.toString()),
                     onTap: () {
                       devicesList[index].connect();
+                      setState(() {
+                        _titleText = 'Подключено';
+                        _appBarColor = Colors.green;
+                      });
                     },
                   );
                 },
@@ -60,11 +66,5 @@ class _ConnectionState extends State<Connection> {
             onPressed: _startScanning, 
             child: const Icon(Icons.search))
             );
-  }
-
-  @override
-  void dispose() {
-    flutterBlue.stopScan();
-    super.dispose();
   }
 }
